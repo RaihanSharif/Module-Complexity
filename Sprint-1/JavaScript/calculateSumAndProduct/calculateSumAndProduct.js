@@ -9,26 +9,23 @@
  *   "product": 30 // 2 * 3 * 5
  * }
  *
- * Time Complexity:
- * Space Complexity:
- * Optimal Time Complexity:
+ * Time Complexity: O(n) -- single loop through the list.
+ * Space Complexity: 0(1) -- sum, product, num are all fixed size.
+ * Optimal Time Complexity: O(n) -- every element must be read at least once.
  *
  * @param {Array<number>} numbers - Numbers to process
  * @returns {Object} Object containing running total and product
  */
 export function calculateSumAndProduct(numbers) {
-  let sum = 0;
-  for (const num of numbers) {
-    sum += num;
-  }
+    let sum = 0;
+    let product = 1;
+    for (const num of numbers) {
+        sum += num;
+        product *= num;
+    }
 
-  let product = 1;
-  for (const num of numbers) {
-    product *= num;
-  }
-
-  return {
-    sum: sum,
-    product: product,
-  };
+    return {
+        sum: sum,
+        product: product,
+    };
 }
