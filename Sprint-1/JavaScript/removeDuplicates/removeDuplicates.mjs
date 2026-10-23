@@ -1,36 +1,21 @@
 /**
  * Remove duplicate values from a sequence, preserving the order of the first occurrence of each value.
  *
- * Time Complexity:
- * Space Complexity:
- * Optimal Time Complexity:
+ * Time Complexity: O(n^2) -- In the worst case, the number of comparisons in each step of the iteration
+ * increases by 1 because uniqueItems grows by 1. It goes 0 + 1 + 2 + ... + (n-1), so total number of  
+ * comparisons is n(n - 1)/2 = (n^2 - n)/2. Big 0 discards constant terms (1/2) and smaller lower order terms
+ * (n), leaving us with n^2. 
+ * 
+ * There aren't exactly n^2 comparisons, but big O doesn't care about that.
+ * 
+ * Space Complexity: O(n) -- uniqueItems can hold up to n items when all items are unique.
+ * 
+ * Optimal Time Complexity: O(n) -- Adding each element of the input sequence to the set is a O(1) (on average) operation,
+ * and then another O(n) operation to convert to an array with the spread operation.
  *
  * @param {Array} inputSequence - Sequence to remove duplicates from
  * @returns {Array} New sequence with duplicates removed
  */
 export function removeDuplicates(inputSequence) {
-  const uniqueItems = [];
-
-  for (
-    let currentIndex = 0;
-    currentIndex < inputSequence.length;
-    currentIndex++
-  ) {
-    let isDuplicate = false;
-    for (
-      let compareIndex = 0;
-      compareIndex < uniqueItems.length;
-      compareIndex++
-    ) {
-      if (inputSequence[currentIndex] === uniqueItems[compareIndex]) {
-        isDuplicate = true;
-        break;
-      }
-    }
-    if (!isDuplicate) {
-      uniqueItems.push(inputSequence[currentIndex]);
-    }
-  }
-
-  return uniqueItems;
+  return [...new Set(inputSequence)];
 }
