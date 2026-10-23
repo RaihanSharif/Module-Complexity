@@ -1,7 +1,7 @@
 /**
  * Finds common items between two arrays.
  *
- * Time Complexity: O(n x m) -- where n is length of firstArray and
+ * Time Complexity: O(n * m) -- where n is length of firstArray and
  * m is length of secondArray. filter is O(n) and includes is o(m) for every n.
  *
  * Space Complexity: O(n) -- every element in firstArray could have its equivalent in secondArray.
