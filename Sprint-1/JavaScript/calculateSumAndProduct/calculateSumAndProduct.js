@@ -9,9 +9,9 @@
  *   "product": 30 // 2 * 3 * 5
  * }
  *
- * Time Complexity: O(n) -- single loop through the list.
+ * Time Complexity: O(n) -- Two loops through array.
  * Space Complexity: 0(1) -- sum, product, num are all fixed size.
- * Optimal Time Complexity: O(n) -- every element must be read at least once.
+ * Optimal Time Complexity: O(n) -- every element can be read once, but in single loop.
  *
  * @param {Array<number>} numbers - Numbers to process
  * @returns {Object} Object containing running total and product
