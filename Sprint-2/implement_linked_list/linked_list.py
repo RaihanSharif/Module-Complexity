@@ -1,4 +1,6 @@
 class Node:
+    __slots__ = ("value", "prev", "next", "owner")
+    
     def __init__(self, value, owner):
         self.value = value
         self.prev = None
