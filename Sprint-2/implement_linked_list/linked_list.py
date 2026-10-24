@@ -1,22 +1,28 @@
-class Node:
+from __future__ import annotations
+from typing import Generic, Optional, TypeVar
+
+T = TypeVar("T")
+
+
+class Node(Generic[T]):
     __slots__ = ("value", "prev", "next", "owner")
     
-    def __init__(self, value, owner):
-        self.value = value
-        self.prev = None
-        self.next = None
+    def __init__(self, value: T, owner: LinkedList[T]):
+        self.value: T = value
+        self.prev: Optional[Node[T]] = None
+        self.next: Optional[Node[T]] = None
         # this links a node to a specific list
         # prevents attempt to remove a node from a list
         # it does not belong to.
-        self.owner = owner   
+        self.owner: Optional[LinkedList[T]] = owner   
 
 
-class LinkedList:
-    def __init__(self):
-        self.head = None
-        self.tail = None
+class LinkedList(Generic[T]):
+    def __init__(self) -> None:
+        self.head: Optional[Node[T]] = None
+        self.tail: Optional[Node[T]] = None
 
-    def push_head(self, value):
+    def push_head(self, value: T) -> Node[T]:
         node = Node(value, self) # makes this list the owner
         node.next = self.head
 
@@ -31,16 +37,16 @@ class LinkedList:
         # returns the node so it can be removed by the remove method
         return node
 
-    def pop_tail(self):
+    def pop_tail(self) -> T:
         if self.tail is None:
             raise IndexError("Cannot pop from empty list")
 
-        current_tail = self.tail
+        current_tail = self.tail  # current_tail's type is inferred
         self.remove(current_tail)
 
         return current_tail.value
 
-    def remove(self, node):
+    def remove(self, node: Node[T]) -> None:
         # check if node is a removed node
         if node.owner is None:
             return
