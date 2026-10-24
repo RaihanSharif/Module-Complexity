@@ -50,30 +50,37 @@ class LinkedList:
         current_tail.removed = True
         return current_tail
 
+    def remove(self, node):
+        # check if node is a removed node
+        if node.removed:
+            return
+
+        # delink the node
+        if node.prev is not None:
+            node.prev.next = node.next
+
+        if node.next:
+            node.next.prev = node.prev
+
+        # this is necessary to prevent this node from 
+        # refering other removed nodes
+        node.prev = None 
+        node.next = None
+
+        node.removed = True
+
+
 
 
 ll = LinkedList()
-ll.push_head(2)
-ll.push_head(12)
+tail = ll.push_head(2)
+middle = ll.push_head(12)
+head = ll.push_head(22)
 
-if ll.tail is not None:
-    print(ll.tail.value)
-else:
-    print("list is empty")
+print(head.next.value)
+ll.remove(middle)
+print(tail.prev.value)
 
-ll.pop_tail()
-
-if ll.tail is not None:
-    print(ll.tail.value)
-else:
-    print("list is empty")
-
-ll.pop_tail()
-
-if ll.tail is not None:
-    print(ll.tail.value)
-else:
-    print("list is empty")
 
 
 # size 5
