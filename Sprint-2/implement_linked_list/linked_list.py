@@ -33,10 +33,9 @@ class LinkedList:
         if self.tail is None:
             raise IndexError("Cannot pop from empty list")
 
-        # get current tail
         current_tail = self.tail
         self.remove(current_tail)
-        
+
         return current_tail.value
 
     def remove(self, node):
@@ -61,8 +60,10 @@ class LinkedList:
             # removing tail
             self.tail = node.prev
 
-        # this is necessary to prevent this node from 
-        # refering other removed nodes
+        # removed node should not keep refereces into the list
+        # otherwise it could leave other nodes alive.
+        # could mislead users of the removed node about the state
+        # of the list
         node.prev = None 
         node.next = None
 
