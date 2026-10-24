@@ -1,9 +1,12 @@
 class Node:
-    def __init__(self, value):
+    def __init__(self, value, owner):
         self.value = value
         self.prev = None
         self.next = None
-        self.removed = False
+        # this links a node to a specific list
+        # prevents attempt to remove a node from a list
+        # it does not belong to.
+        self.owner = owner   
 
 
 class LinkedList:
@@ -12,7 +15,7 @@ class LinkedList:
         self.tail = None
 
     def push_head(self, value):
-        node = Node(value)
+        node = Node(value, self) # makes this list the owner
         node.next = self.head
 
         # set current head's previous node 
@@ -47,14 +50,17 @@ class LinkedList:
         # so that putting it inside of remove won't try to remove something
         # that's not in the list
         current_tail.prev = None
-        current_tail.removed = True
+        current_tail.owner = None
         return current_tail
 
     def remove(self, node):
         # check if node is a removed node
-        if node.removed:
+        if node.owner is None:
             return
 
+        if node.owner is not self:
+            raise ValueError("This node does not belong to this list")
+        
         # delink the node
         if node.prev is not None:
             node.prev.next = node.next
@@ -67,26 +73,6 @@ class LinkedList:
         node.prev = None 
         node.next = None
 
-        node.removed = True
-
-
-
-
-ll = LinkedList()
-tail = ll.push_head(2)
-middle = ll.push_head(12)
-head = ll.push_head(22)
-
-print(head.next.value)
-ll.remove(middle)
-print(tail.prev.value)
-
-
-
-# size 5
-# Node(12) -> Node(2) -> Node(22) -> Node(43) -> Node(4)
-# Node(12) -> Node(2)
-# Node(12)   head: Node(12)   tail: Node(12)
-#
+        node.owner = None
 
 
