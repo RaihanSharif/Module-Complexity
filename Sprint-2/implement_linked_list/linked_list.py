@@ -1,26 +1,34 @@
+class Node:
+    def __init__(self, value):
+        self.value = value
+        self.prev = None
+        self.next = None
+        self.removed = False
+
+
 class LinkedList:
-    def __init__(self, head=None, tail=None):
-        self.head = head
-        self.tail = tail
-        self.size = 0
+    def __init__(self):
+        self.head = None
+        self.tail = None
+
+    def push_head(self, value):
+        node = Node(value)
+        node.next = self.head
+
+        # set current head's previous node 
+        # to be the new head node
         if self.head is not None:
-            self.size += 1
-        if self.tail is not None and self.head != self.tail:
-            self.size += 1
+            self.head.prev = node
+        else:
+            self.tail = node          
+        self.head = node
+        # returns the node so it can be removed by the remove method
+        return node
 
-    def push_head(self, new_head):
-        new_head.next = self.head
-        self.head = new_head
-        self.size += 1
-        return self.head
-
-    def pop_tail(self):
-        node_before_last = self.head
-        for i in range(self.size - 2):
-            node_before_last = node_before_last.next
-        tail = node_before_last.next
-        self.tail = node_before_last
-        return tail
+ll = LinkedList()
+ll.push_head(12)
+print(ll.head) # a .Node object at 0x...
+print(ll.head.value) # 12 .
 
 # size 5
 # Node(12) -> Node(2) -> Node(22) -> Node(43) -> Node(4)
