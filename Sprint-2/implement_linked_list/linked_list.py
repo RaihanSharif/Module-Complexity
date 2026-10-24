@@ -51,7 +51,7 @@ class LinkedList:
         # that's not in the list
         current_tail.prev = None
         current_tail.owner = None
-        return current_tail
+        return current_tail.value
 
     def remove(self, node):
         # check if node is a removed node
