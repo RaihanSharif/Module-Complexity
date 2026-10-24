@@ -64,9 +64,16 @@ class LinkedList:
         # delink the node
         if node.prev is not None:
             node.prev.next = node.next
+        else:
+            # removing head
+            self.head = node.next
 
-        if node.next:
+        
+        if node.next is not None:
             node.next.prev = node.prev
+        else:
+            # removing tail
+            self.tail = node.prev
 
         # this is necessary to prevent this node from 
         # refering other removed nodes
